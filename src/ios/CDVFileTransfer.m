@@ -305,7 +305,7 @@ static CFIndex WriteDataToStream(NSData* data, CFWriteStreamRef stream)
         NSRange commaRange = [source rangeOfString: @","];
         if (commaRange.location == NSNotFound) {
             // Return error is there is no comma
-            __weak CDVFileTransfer* weakSelf = self;
+             CDVFileTransfer* weakSelf = self;
             CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:[weakSelf createFileTransferError:INVALID_URL_ERR AndSource:source AndTarget:server]];
             [weakSelf.commandDelegate sendPluginResult:result callbackId:command.callbackId];
             return;
@@ -331,7 +331,7 @@ static CFIndex WriteDataToStream(NSData* data, CFWriteStreamRef stream)
         fs = [[self.commandDelegate getCommandInstance:@"File"] filesystemForURL:sourceURL];
     }
     if (fs) {
-        __weak CDVFileTransfer* weakSelf = self;
+         CDVFileTransfer* weakSelf = self;
         [fs readFileAtURL:sourceURL start:0 end:-1 callback:^(NSData *fileData, NSString *mimeType, CDVFileError err) {
             if (err) {
                 // We couldn't find the asset.  Send the appropriate error.
@@ -552,7 +552,7 @@ static CFIndex WriteDataToStream(NSData* data, CFWriteStreamRef stream)
 
 @interface CDVFileTransferEntityLengthRequest : NSObject {
     NSURLConnection* _connection;
-    CDVFileTransferDelegate* __weak _originalDelegate;
+    CDVFileTransferDelegate*  _originalDelegate;
 }
 
 - (CDVFileTransferEntityLengthRequest*)initWithOriginalRequest:(NSURLRequest*)originalRequest andDelegate:(CDVFileTransferDelegate*)originalDelegate;
